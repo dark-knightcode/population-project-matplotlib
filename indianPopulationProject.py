@@ -209,3 +209,46 @@ plt.savefig("india_population_analysis.png", dpi=150,
             bbox_inches="tight", facecolor=fig.get_facecolor())
 print("Saved -> india_population_analysis.png")
 plt.show()
+
+import geopandas as gpd
+
+# Load India map
+map_df = gpd.read_file(r"D:\CLASS\JU\indian population heatmap\india_telengana.geojson")
+
+# Fix state name mismatch (VERY IMPORTANT)
+# GeoJSON uses slightly different names
+state_mapping = {
+    "Uttar Pradesh": "Uttar Pradesh",
+    "Maharashtra": "Maharashtra",
+    "Bihar": "Bihar",
+    "West Bengal": "West Bengal",
+    "Madhya Pradesh": "Madhya Pradesh",
+    "Rajasthan": "Rajasthan",
+    "Tamil Nadu": "Tamil Nadu",
+    "Karnataka": "Karnataka",
+    "Gujarat": "Gujarat",
+    "Andhra Pradesh": "Andhra Pradesh"
+}
+
+# Convert your dataframe index into column
+df_reset = df.reset_index()
+
+# Merge map with your dataset
+merged = map_df.merge(df_reset, left_on="NAME_1", right_on="State")
+
+# Plot choropleth map
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+
+merged.plot(
+    column="Population",   # Change this to Literacy / Density / etc
+    cmap="OrRd",
+    linewidth=0.8,
+    ax=ax,
+    edgecolor="0.8",
+    legend=True
+)
+
+ax.set_title("India Population Heatmap (State-wise)", fontsize=14)
+ax.axis("off")
+
+plt.show()

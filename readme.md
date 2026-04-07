@@ -2,7 +2,8 @@
 
 A data visualization project analyzing India's population demographics using **Matplotlib** and **Seaborn**. Built with real Census 2011 and World Bank data.
 
-![India Population Dashboard](india_population_analysis.png)
+![India Population Dashboard](india_population_analysis.png)\
+![India Stated Heatmap](indianstatesheatmap.png)
 
 ---
 
